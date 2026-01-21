@@ -600,13 +600,15 @@
             .nav-menu {
                 display: none;
                 position: absolute;
-                top: 60px;
+                top: 130px;
                 left: 0;
                 right: 0;
                 flex-direction: column;
                 background-color: white;
                 gap: 0;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                max-height: calc(100vh - 60px);
+                overflow-y: auto;
             }
 
             .nav-menu.active {
@@ -614,7 +616,7 @@
             }
 
             .nav-menu li {
-                padding: 1rem 2rem;
+                padding: 0.75rem 2rem;
                 border-bottom: 1px solid var(--border-color);
             }
 
@@ -935,9 +937,9 @@
                 <div class="contact-detail">
                     <h3>Media Sosial</h3>
                     <div class="social-links">
-                        <a href="https://instagram.com/warungibusiti" target="_blank" title="Instagram">📸</a>
-                        <a href="https://tiktok.com/@warungibusiti" target="_blank" title="TikTok">🎵</a>
-                        <a href="https://facebook.com/warungibusiti" target="_blank" title="Facebook">👍</a>
+                        <a href="https://instagram.com/warungibusiti" target="_blank" title="Instagram"><img src="instagram.svg" alt="Instagram" style="width: 20px; height: 20px;"></a>
+                        <a href="https://tiktok.com/@warungibusiti" target="_blank" title="TikTok"><img src="tiktok.svg" alt="TikTok" style="width: 20px; height: 20px;"></a>
+                        <a href="https://facebook.com/warungibusiti" target="_blank" title="Facebook"><img src="facebook.svg" alt="Facebook" style="width: 20px; height: 20px;"></a>
                     </div>
                 </div>
             </div>
