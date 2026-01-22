@@ -1,967 +1,1092 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meltbite - Kukis expert</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --primary-color: #db7783;
-            --secondary-color: #bb6f7a;
-            --dark-color: #1f2937;
-            --light-color: #fee1e5;
-            --text-color: #374151;
-            --border-color: #f4c1c7;
-            --transition: all 0.3s ease;
-        }
+      :root {
+        --primary-color: #db7783;
+        --secondary-color: #bb6f7a;
+        --dark-color: #1f2937;
+        --light-color: #fee1e5;
+        --text-color: #374151;
+        --border-color: #f4c1c7;
+        --transition: all 0.3s ease;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #fff;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #fff;
+      }
 
-        /* ========== HEADER & NAVIGATION ========== */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+      /* ========== HEADER & NAVIGATION ========== */
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
 
+      .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .nav-menu a:not(.whatsapp-btn):hover {
+        color: var(--primary-color);
+      }
+
+      .whatsapp-btn {
+        background-color: var(--border-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .whatsapp-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--dark-color);
+        margin: 5px 0;
+        transition: var(--transition);
+        border-radius: 2px;
+      }
+
+      /* ========== HERO SECTION ========== */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-content {
+        max-width: 800px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background-color: white;
+        color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background-color: white;
+        color: var(--primary-color);
+      }
+
+      /* ========== SECTION STYLES ========== */
+      section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        color: var(--dark-color);
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 60px;
+        height: 4px;
+        background-color: var(--primary-color);
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      /* ========== ABOUT SECTION ========== */
+      .about-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-content h2 {
+        font-size: 2rem;
+        color: var(--dark-color);
+        margin-bottom: 1.5rem;
+      }
+
+      .about-content p {
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        line-height: 1.8;
+      }
+
+      .values {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .value-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .value-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      .value-item h3 {
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .about-image {
+        width: 100%;
+        height: 400px;
+        background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+      }
+
+      /* ========== USP SECTION ========== */
+      .usp-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .usp-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 10px;
+        transition: var(--transition);
+        border: 1px solid var(--border-color);
+      }
+
+      .usp-card:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+      }
+
+      .usp-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .usp-card h3 {
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .usp-card p {
+        font-size: 0.95rem;
+        color: var(--text-color);
+      }
+
+      /* ========== PRODUCTS SECTION ========== */
+      .category-filters {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--border-color);
+        background-color: white;
+        color: var(--text-color);
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+      }
+
+      .filter-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .filter-btn:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .product-card {
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .product-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(135deg, #fecaca 0%, #fed7aa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: rgba(0, 0, 0, 0.1);
+      }
+
+      .product-info {
+        padding: 1.5rem;
+      }
+
+      .product-info h3 {
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .product-desc {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+      }
+
+      .product-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        color: #666;
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .product-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .product-btn:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* ========== TESTIMONIALS SECTION ========== */
+      .testimonials-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .testimonial-card {
+        background-color: var(--light-color);
+        padding: 2rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color);
+      }
+
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .testimonial-author h4 {
+        color: var(--dark-color);
+        margin-bottom: 0.25rem;
+      }
+
+      .testimonial-author p {
+        font-size: 0.85rem;
+        color: var(--text-color);
+      }
+
+      .stars {
+        color: #fbbf24;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-text {
+        color: var(--text-color);
+        font-style: italic;
+        line-height: 1.8;
+      }
+
+      /* ========== CONTACT SECTION ========== */
+      .contact-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .contact-detail h3 {
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-detail p {
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .contact-detail a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .contact-detail a:hover {
+        text-decoration: underline;
+      }
+
+      .maps-container {
+        border-radius: 10px;
+        overflow: hidden;
+        height: 400px;
+      }
+
+      .maps-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      /* ========== FOOTER ========== */
+      footer {
+        background-color: var(--dark-color);
+        color: white;
+        padding: 3rem 2rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section a {
+        color: #d1d5db;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-section a:hover {
+        color: var(--primary-color);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: var(--primary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #9ca3af;
+      }
+
+      /* ========== RESPONSIVE ========== */
+      @media (max-width: 768px) {
         .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
+          padding: 1rem 1.5rem;
         }
 
         .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
+          display: none;
+          position: absolute;
+          top: 130px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background-color: white;
+          gap: 0;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          max-height: calc(100vh - 60px);
+          overflow-y: auto;
         }
 
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
+        .nav-menu.active {
+          display: flex;
         }
 
-        .nav-menu a:not(.whatsapp-btn):hover {
-            color: var(--primary-color);
-        }
-
-        .whatsapp-btn {
-            background-color: var(--border-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
+        .nav-menu li {
+          padding: 0.75rem 2rem;
+          border-bottom: 1px solid var(--border-color);
         }
 
         .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
+          display: flex;
         }
 
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--dark-color);
-            margin: 5px 0;
-            transition: var(--transition);
-            border-radius: 2px;
+        .logo {
+          font-size: 1.2rem;
         }
 
-        /* ========== HERO SECTION ========== */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 6rem 2rem;
-            text-align: center;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
+          padding: 3rem 2rem;
+          min-height: auto;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+          font-size: 1.75rem;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+          font-size: 1rem;
         }
 
         .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+          flex-direction: column;
         }
 
         .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
+          width: 100%;
         }
 
-        .btn-primary {
-            background-color: white;
-            color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background-color: white;
-            color: var(--primary-color);
-        }
-
-        /* ========== SECTION STYLES ========== */
-        section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            color: var(--dark-color);
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        /* ========== ABOUT SECTION ========== */
         .about-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-content h2 {
-            font-size: 2rem;
-            color: var(--dark-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content p {
-            margin-bottom: 1rem;
-            color: var(--text-color);
-            line-height: 1.8;
-        }
-
-        .values {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .value-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .value-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .value-item h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
+          grid-template-columns: 1fr;
         }
 
         .about-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+          order: -1;
         }
 
-        /* ========== USP SECTION ========== */
-        .usp-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        .contact-container {
+          grid-template-columns: 1fr;
         }
 
-        .usp-card {
-            text-align: center;
-            padding: 2rem;
-            border-radius: 10px;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-        }
-
-        .usp-card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transform: translateY(-5px);
-        }
-
-        .usp-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .usp-card h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .usp-card p {
-            font-size: 0.95rem;
-            color: var(--text-color);
-        }
-
-        /* ========== PRODUCTS SECTION ========== */
-        .category-filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--border-color);
-            background-color: white;
-            color: var(--text-color);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .filter-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .filter-btn:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+        .maps-container {
+          height: 300px;
         }
 
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         }
 
-        .product-card {
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: var(--transition);
+        section {
+          padding: 2rem 1.5rem;
         }
 
-        .product-card:hover {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transform: translateY(-5px);
+        .section-title {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 1.5rem;
         }
 
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #fecaca 0%, #fed7aa 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: rgba(0,0,0,0.1);
+        .section-title {
+          font-size: 1.3rem;
         }
 
-        .product-info {
-            padding: 1.5rem;
+        .about-content h2 {
+          font-size: 1.5rem;
         }
 
-        .product-info h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
+        .category-filters {
+          flex-direction: column;
         }
 
-        .product-desc {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            margin-bottom: 1rem;
+        .filter-btn {
+          width: 100%;
         }
 
-        .product-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            color: #666;
+        .products-grid {
+          grid-template-columns: 1fr;
         }
 
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .product-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .product-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* ========== TESTIMONIALS SECTION ========== */
         .testimonials-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+          grid-template-columns: 1fr;
         }
 
-        .testimonial-card {
-            background-color: var(--light-color);
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--primary-color);
+        .usp-container {
+          grid-template-columns: 1fr;
         }
 
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .testimonial-author h4 {
-            color: var(--dark-color);
-            margin-bottom: 0.25rem;
-        }
-
-        .testimonial-author p {
-            font-size: 0.85rem;
-            color: var(--text-color);
-        }
-
-        .stars {
-            color: #fbbf24;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-text {
-            color: var(--text-color);
-            font-style: italic;
-            line-height: 1.8;
-        }
-
-        /* ========== CONTACT SECTION ========== */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .contact-detail h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-detail p {
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .contact-detail a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .contact-detail a:hover {
-            text-decoration: underline;
-        }
-
-
-
-        .maps-container {
-            border-radius: 10px;
-            overflow: hidden;
-            height: 400px;
-        }
-
-        .maps-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* ========== FOOTER ========== */
         footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 2rem;
+          padding: 2rem 1.5rem;
         }
+      }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+      /* ========== ANIMATIONS ========== */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
         }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        .footer-section ul {
-            list-style: none;
-        }
+      .fade-in {
+        animation: fadeInUp 0.6s ease-out;
+      }
 
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: #d1d5db;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-color);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary-color);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #9ca3af;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .header-container {
-                padding: 1rem 1.5rem;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 130px;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background-color: white;
-                gap: 0;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                max-height: calc(100vh - 60px);
-                overflow-y: auto;
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .nav-menu li {
-                padding: 0.75rem 2rem;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .hero {
-                padding: 3rem 2rem;
-                min-height: auto;
-            }
-
-            .hero h1 {
-                font-size: 1.75rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-
-            .about-image {
-                order: -1;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .maps-container {
-                height: 300px;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-
-            section {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.3rem;
-            }
-
-            .about-content h2 {
-                font-size: 1.5rem;
-            }
-
-            .category-filters {
-                flex-direction: column;
-            }
-
-            .filter-btn {
-                width: 100%;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .testimonials-container {
-                grid-template-columns: 1fr;
-            }
-
-            .usp-container {
-                grid-template-columns: 1fr;
-            }
-
-            footer {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        /* ========== ANIMATIONS ========== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* ========== UTILITY ========== */
-        .hidden {
-            display: none;
-        }
+      /* ========== UTILITY ========== */
+      .hidden {
+        display: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- ========== HEADER & NAVIGATION ========== -->
     <header>
-        <div class="header-container">
-            <a href="#home" class="logo"><img src="meltbite.jpeg" alt="Meltbite ID" style="height: 100px; margin-right: 0.5rem; vertical-align: middle;"> Meltbite ID</a>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#products">Produk</a></li>
-                    <li><a href="#testimonials">Testimoni</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                    <li><a href="https://wa.me/6283141790795?text=Halo%20Meltbite%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Anda" class="whatsapp-btn" target="_blank">💬 WhatsApp</a></li>
-                </ul>
-            </nav>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+      <div class="header-container">
+        <a href="#home" class="logo"
+          ><img
+            src="meltbite.jpeg"
+            alt="Meltbite ID"
+            style="height: 100px; margin-right: 0.5rem; vertical-align: middle"
+          />
+          Meltbite ID</a
+        >
+        <nav>
+          <ul class="nav-menu">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#products">Produk</a></li>
+            <li><a href="#testimonials">Testimoni</a></li>
+            <li><a href="#contact">Kontak</a></li>
+            <li>
+              <a
+                href="https://wa.me/6283141790795?text=Halo%20Meltbite%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Anda"
+                class="whatsapp-btn"
+                target="_blank"
+                >💬 WhatsApp</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+      </div>
     </header>
 
     <!-- ========== HERO SECTION ========== -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Katering Sehat Tanpa MSG, Rasa Seperti Masakan Ibu</h1>
-            <p>Nikmati hidangan lezat dengan bahan-bahan premium pilihan dan resep turun-temurun yang terjaga keasliannya. Kami menghadirkan kelezatan tradisional dengan sentuhan modern untuk keluarga Anda.</p>
-            <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">Lihat Katalog</a>
-                <a href="https://wa.me/6283141790795?text=Halo%20Warung%20Ibu%20Siti%2C%20saya%20ingin%20memesan%20catering" target="_blank" class="btn btn-secondary">Pesan Sekarang</a>
-            </div>
+      <div class="hero-content">
+        <h1>Happiness in every bite</h1>
+        <p>
+          ​Hadirkan momen manis dengan koleksi dessert terbaik dari Meltbite.
+          Mulai dari Soft Cookies yang lumer, Fudgy Brownies yang shiny & chewy,
+          hingga Brownies Bites yang praktis sekali lahap. Semua dipanggang
+          segar setiap hari menggunakan bahan premium untuk rasa cokelat yang
+          otentik.
+        </p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-primary">Lihat Katalog</a>
+          <a
+            href="https://wa.me/6283141790795?text=Halo%20Warung%20Ibu%20Siti%2C%20saya%20ingin%20memesan%20catering"
+            target="_blank"
+            class="btn btn-secondary"
+            >Pesan Sekarang</a
+          >
         </div>
+      </div>
     </section>
 
     <!-- ========== ABOUT SECTION ========== -->
     <section id="about">
-        <h2 class="section-title">Tentang Kami</h2>
-        <div class="about-container">
-            <div class="about-image">🏪</div>
-            <div class="about-content">
-                <h2>Cerita Kami</h2>
-                <p>Meltbite didirikan pada tahun 2015 dengan misi sederhana: membawa cita rasa masakan rumahan yang autentik ke meja makan keluarga Indonesia. Berawal dari dapur kecil di rumah, kini kami melayani ratusan pelanggan setia setiap bulannya.</p>
-                <p>Kami percaya bahwa makanan bukan hanya tentang kelezatan, tetapi juga tentang cinta dan kepedulian. Setiap hidangan kami dibuat dengan tangan, menggunakan bahan-bahan pilihan terbaik dari pemasok lokal terpercaya.</p>
-                
-                <div class="values">
-                    <div class="value-item">
-                        <div class="value-icon">✓</div>
-                        <div>
-                            <h3>Bahan Lokal Premium</h3>
-                            <p>Kami bangga menggunakan bahan baku berkualitas tinggi dari petani lokal pilihan.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-icon">✓</div>
-                        <div>
-                            <h3>Resep Turun-Temurun</h3>
-                            <p>Resep warisan keluarga yang telah disempurnakan selama puluhan tahun.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-icon">✓</div>
-                        <div>
-                            <h3>Ramah Lingkungan</h3>
-                            <p>Menggunakan kemasan ramah lingkungan dan proses produksi berkelanjutan.</p>
-                        </div>
-                    </div>
-                </div>
+      <h2 class="section-title">Tentang Kami</h2>
+      <div class="about-container">
+        <div class="about-image">🏪</div>
+        <div class="about-content">
+          <h2>Cerita Kami</h2>
+          <p>
+            ​Meltbite resmi didirikan pada Juni 2025, berawal dari sebuah dapur
+            kecil dan mimpi seorang perenouan untuk menyalurkan wishlist hobinya
+            di dunia baking. Berbekal ketelitian dan rasa cinta, setiap
+            percobaan resep dilalui dengan hasil yang memuaskan sejak hari
+            pertama. ​Kepercayaan diri ini tumbuh seiring dengan banyaknya
+            dukungan dari teman-teman terdekat yang menikmati hasilnya. Berawal
+            dari sekadar mencoba, respon positif dan repeat order yang terus
+            berdatangan menjadi alasan kuat bagi kami untuk membagikan
+            kebahagiaan ini lebih luas lagi. Kini, Meltbite hadir sebagai wujud
+            dedikasi untuk menyajikan soft cookies dan brownies berkualitas yang
+            lahir dari kesungguhan hati.
+          </p>
+          <p>
+            Kami percaya bahwa makanan bukan hanya tentang kelezatan, tetapi
+            juga tentang cinta dan kepedulian. Setiap hidangan kami dibuat
+            dengan tangan, menggunakan bahan-bahan pilihan terbaik dari pemasok
+            lokal terpercaya.
+          </p>
+
+          <div class="values">
+            <div class="value-item">
+              <div class="value-icon">✓</div>
+              <div>
+                <h3>​Bahan Premium Pilihan</h3>
+                <p>
+                  Kami hanya menggunakan cokelat berkualitas tinggi dan mentega
+                  premium untuk memastikan rasa yang kaya dan aroma yang
+                  menggugah selera di setiap gigitan.
+                </p>
+              </div>
             </div>
+            <div class="value-item">
+              <div class="value-icon">✓</div>
+              <div>
+                <h3>Freshly Baked Daily</h3>
+                <p>
+                  Semua produk Meltbite dipanggang setiap hari berdasarkan
+                  pesanan (made to order), sehingga sampai di tanganmu dalam
+                  keadaan sesegar mungkin.
+                </p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">✓</div>
+              <div>
+                <h3>​Tekstur yang Konsisten</h3>
+                <p>
+                  Dikembangkan melalui eksperimen penuh ketelitian untuk
+                  menciptakan perpaduan sempurna: renyah di luar namun tetap
+                  lembut dan lumer di dalam.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- ========== USP SECTION ========== -->
     <section>
-        <h2 class="section-title">Kenapa Memilih Kami?</h2>
-        <div class="usp-container">
-            <div class="usp-card">
-                <div class="usp-icon">⭐</div>
-                <h3>Kualitas Premium</h3>
-                <p>Bahan-bahan pilihan terbaik tanpa pengawet, MSG, atau bahan kimia berbahaya.</p>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">💰</div>
-                <h3>Harga Kompetitif</h3>
-                <p>Kualitas premium dengan harga terjangkau untuk semua kalangan keluarga.</p>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">🚚</div>
-                <h3>Pelayanan Cepat</h3>
-                <p>Pengiriman aman dengan estimasi 24-48 jam ke seluruh wilayah.</p>
-            </div>
-            <div class="usp-card">
-                <div class="usp-icon">✅</div>
-                <h3>Berizin Resmi</h3>
-                <p>Terdaftar PIRT dan memiliki sertifikat halal dari lembaga yang diakui.</p>
-            </div>
+      <h2 class="section-title">Kenapa Memilih Kami?</h2>
+      <div class="usp-container">
+        <div class="usp-card">
+          <div class="usp-icon">🌟</div>
+          <h3>Kualitas Premium</h3>
+          <p>
+            Menggunakan cokelat pilihan dan mentega premium untuk menghasilkan
+            rasa yang mewah dan aroma yang menggugah selera di setiap gigitan.
+          </p>
         </div>
+        <div class="usp-card">
+          <div class="usp-icon">🍰</div>
+          <h3>Tekstur Sempurna</h3>
+          <p>
+            Ahlinya tekstur soft & fudgy. Kami menjamin sensasi lumer di dalam
+            dan renyah di luar yang konsisten, berkat resep yang telah teruji.
+          </p>
+        </div>
+        <div class="usp-card">
+          <div class="usp-icon">✨</div>
+          <h3>Dipanggang Segar</h3>
+          <p>
+            Freshly baked daily! Semua pesanan dipanggang di hari yang sama agar
+            kelembutan dan kesegarannya tetap terjaga hingga ke tangan Anda.
+          </p>
+        </div>
+        <div class="usp-card">
+          <div class="usp-icon">❤️</div>
+          <h3>Dibuat dengan Hati</h3>
+          <p>
+            Lahir dari dedikasi dan cinta terhadap dunia baking. Kami memastikan
+            setiap produk memiliki standar rasa yang jujur dan memuaskan seperti
+            buatan rumah.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- ========== PRODUCTS SECTION ========== -->
     <section id="products">
-        <h2 class="section-title">Katalog Produk</h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- Products akan di-generate oleh JavaScript -->
-        </div>
+      <h2 class="section-title">Katalog Produk</h2>
+      <div class="products-grid" id="productsGrid">
+        <!-- Products akan di-generate oleh JavaScript -->
+      </div>
     </section>
 
     <!-- ========== TESTIMONIALS SECTION ========== -->
     <section id="testimonials">
-        <h2 class="section-title">Testimoni Pelanggan</h2>
-        <div class="testimonials-container">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">RS</div>
-                    <div class="testimonial-author">
-                        <h4>Rini Suryanto</h4>
-                        <p>Ibu Rumah Tangga</p>
-                    </div>
-                </div>
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "Makanannya sangat lezat dan higienis! Keluarga saya jadi sering memesan untuk acara-acara khusus. Rasa yang autentik membuat saya merasa seperti makan masakan ibu sendiri."
-                </div>
+      <h2 class="section-title">Testimoni Pelanggan</h2>
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">YA</div>
+            <div class="testimonial-author">
+              <h4>Yani</h4>
+              <p>Customer</p>
             </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">BU</div>
-                    <div class="testimonial-author">
-                        <h4>Budi Utama</h4>
-                        <p>Pengusaha</p>
-                    </div>
-                </div>
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "Sebagai pengusaha, saya sangat menghargai kecepatan dan konsistensi kualitas mereka. Sudah bermitra dengan Meltbite selama 2 tahun dan tidak ada keluhan."
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">SN</div>
-                    <div class="testimonial-author">
-                        <h4>Sinta Nurhaliza</h4>
-                        <p>Event Organizer</p>
-                    </div>
-                </div>
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "Catering mereka menjadi pilihan favorit klien saya. Porsi besar, harga wajar, dan yang paling penting, rasa yang konsisten setiap kali order."
-                </div>
-            </div>
+          </div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="testimonial-text">
+            "Bener-bener definisi 'Melt' sesuai namanya! Soft cookies-nya juara
+            banget, renyah di pinggir tapi tengahnya lumer parah. Manisnya juga
+            pas, nggak bikin eneg. Fix bakal jadi langganan buat nemenin ngopi
+            sore!"
+          </div>
         </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">AM</div>
+            <div class="testimonial-author">
+              <h4>Amel</h4>
+              <p>Customer</p>
+            </div>
+          </div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="testimonial-text">
+            "Jarang nemu brownies yang teksturnya se-fudgy ini. Bagian atasnya
+            shiny crust-nya dapet banget, dalemnya masih moist. Berasa banget
+            kalau pake cokelat premium, rasanya mahal! Worth it banget buat kado
+            atau dimakan sendiri."
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">KH</div>
+            <div class="testimonial-author">
+              <h4>Kharisma</h4>
+              <p>Customer</p>
+            </div>
+          </div>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <div class="testimonial-text">
+            "Awalnya cuma nyoba Brownies Bites-nya, eh malah ketagihan!
+            Ukurannya pas banget buat sekali lahap. Temen-temen kantor juga pada
+            suka dan akhirnya kami repeat order terus tiap minggu. Emang beda
+            kalau dibuat pake hati!"
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ========== CONTACT SECTION ========== -->
     <section id="contact">
-        <h2 class="section-title">Hubungi Kami</h2>
-        <div class="contact-container">
-            <div class="contact-item">
-                <div class="contact-icon">📱</div>
-                <div class="contact-detail">
-                    <h3>WhatsApp</h3>
-                    <a href="https://wa.me/6283141790795" target="_blank">+62 831-4179-0795</a>
-                    <p>Respons cepat, siap membantu Anda</p>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">📧</div>
-                <div class="contact-detail">
-                    <h3>Email</h3>
-                    <a href="mailto:info@warungibusiti.com">info@warungibusiti.com</a>
-                    <p>Hubungi kami untuk pertanyaan apapun</p>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">🕒</div>
-                <div class="contact-detail">
-                    <h3>Jam Operasional</h3>
-                    <p>Senin - Jumat: 08:00 - 18:00</p>
-                    <p>Sabtu - Minggu: 09:00 - 17:00</p>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">📍</div>
-                <div class="contact-detail">
-                    <h3>Alamat</h3>
-                    <p>Jl. Raya Merdeka No. 123<br>Kelurahan Sukaharja, Kota Bandung<br>Jawa Barat 40123</p>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">👥</div>
-                <div class="contact-detail">
-                    <h3>Media Sosial</h3>
-                    <div class="social-links">
-                        <a href="https://instagram.com/warungibusiti" target="_blank" title="Instagram"><img src="instagram.svg" alt="Instagram" style="width: 20px; height: 20px;"></a>
-                        <a href="https://tiktok.com/@warungibusiti" target="_blank" title="TikTok"><img src="tiktok.svg" alt="TikTok" style="width: 20px; height: 20px;"></a>
-                        <a href="https://facebook.com/warungibusiti" target="_blank" title="Facebook"><img src="facebook.svg" alt="Facebook" style="width: 20px; height: 20px;"></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-item">
-                <div class="contact-icon">💬</div>
-                <div class="contact-detail">
-                    <h3>Hubungi Via WhatsApp</h3>
-                    <p>Klik tombol di bawah untuk menghubungi kami langsung</p>
-                    <a href="https://wa.me/6283141790795?text=Halo%20Meltbite%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Anda" target="_blank" class="btn btn-primary" style="display: inline-block; margin-top: 0.5rem; padding: 0.6rem 1.2rem; font-size: 0.9rem;">Kirim Pesan WhatsApp</a>
-                </div>
-            </div>
+      <h2 class="section-title">Hubungi Kami</h2>
+      <div class="contact-container">
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-detail">
+            <h3>WhatsApp</h3>
+            <a href="https://wa.me/6283141790795" target="_blank"
+              >+62 831-4179-0795</a
+            >
+            <p>Respons cepat, siap membantu Anda</p>
+          </div>
         </div>
 
-        <div class="maps-container" style="margin-top: 3rem;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.8193434374057!2d107.00970087346147!3d-6.914744893088626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6b1e1e1e1e1%3A0x1e1e1e1e1e1e1e1e!2sJl.%20Raya%20Merdeka%20No.%20123%2C%20Bandung!5e0!3m2!1sid!2sid!4v1626000000000" allowfullscreen="" loading="lazy"></iframe>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-detail">
+            <h3>Email</h3>
+            <a href="mailto:ameliaanur30@gmail.com" target="_blank"
+              >ameliaanur30@gmail.com</a
+            >
+            <p>Hubungi kami untuk pertanyaan apapun</p>
+          </div>
         </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🕒</div>
+          <div class="contact-detail">
+            <h3>Jam Operasional</h3>
+            <p>Senin - Jumat: 08:00 - 18:00</p>
+            <p>Sabtu - Minggu: 09:00 - 17:00</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-detail">
+            <h3>Alamat</h3>
+            <p>
+              Gang Rh, Jalan Cikangkung Barat II, RT. 10/RW . 02 Kelurahan
+              Rengasdengklok Utara , Rengasdengklok , Kab Karawang, Jawa Barat
+              41352
+            </p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">👥</div>
+          <div class="contact-detail">
+            <h3>Media Sosial</h3>
+            <div class="social-links">
+              <a
+                href="https://www.instagram.com/meltanbite.id"
+                target="_blank"
+                title="Instagram"
+                ><img
+                  src="instagram.svg"
+                  alt="Instagram"
+                  style="width: 20px; height: 20px"
+              /></a>
+              <a
+                href="https://www.tiktok.com/@bakewtme"
+                target="_blank"
+                title="TikTok"
+                ><img
+                  src="tiktok.svg"
+                  alt="TikTok"
+                  style="width: 20px; height: 20px"
+              /></a>
+              <!-- <a href="https://facebook.com/warungibusiti" target="_blank" title="Facebook"><img src="facebook.svg" alt="Facebook" style="width: 20px; height: 20px;"></a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div class="contact-detail">
+            <h3>Hubungi Via WhatsApp</h3>
+            <p>Klik tombol di bawah untuk menghubungi kami langsung</p>
+            <a
+              href="https://wa.me/6283141790795?text=Halo%20Meltbite%2C%20saya%20ingin%20bertanya%20tentang%20produk%20Anda"
+              target="_blank"
+              class="btn btn-primary"
+              style="
+                display: inline-block;
+                margin-top: 0.5rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+              "
+              >Kirim Pesan WhatsApp</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="maps-container" style="margin-top: 3rem">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.878456236397!2d107.2963913749898!3d-6.147022393839999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDgnNDkuMyJTIDEwN8KwMTcnNTYuMyJF!5e0!3m2!1sid!2sid!4v1769063607323!5m2!1sid!2sid"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </section>
 
     <!-- ========== FOOTER ========== -->
     <footer>
-        <!-- <div class="footer-content">
+      <!-- <div class="footer-content">
             <div class="footer-section">
                 <h3>Meltbite</h3>
                 <p>Menghadirkan cita rasa autentik masakan rumahan ke meja makan Anda dengan bahan-bahan pilihan terbaik.</p>
