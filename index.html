@@ -53,6 +53,17 @@
         text-decoration: none;
       }
 
+      /* Make header logo image rounded */
+      .logo img {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+        display: inline-block;
+      }
+
       .nav-menu {
         display: flex;
         list-style: none;
@@ -343,6 +354,8 @@
         border-radius: 10px;
         overflow: hidden;
         transition: var(--transition);
+        display: flex;
+        flex-direction: column;
       }
 
       .product-card:hover {
@@ -363,6 +376,10 @@
 
       .product-info {
         padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
       }
 
       .product-info h3 {
@@ -1035,8 +1052,8 @@
           <div class="contact-icon">🕒</div>
           <div class="contact-detail">
             <h3>Jam Operasional</h3>
-            <p>Senin - Jumat: 08:00 - 18:00</p>
-            <p>Sabtu - Minggu: 09:00 - 17:00</p>
+            <!-- <p>Senin - Jumat: 08:00 - 18:00</p> -->
+            <p>Sabtu - Minggu: 17:00 - 23:00</p>
           </div>
         </div>
 
